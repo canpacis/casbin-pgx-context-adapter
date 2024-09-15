@@ -3,7 +3,6 @@ module github.com/CanPacis/casbin-pgx-context-adapter
 go 1.23.0
 
 require (
-	github.com/casbin/casbin v1.9.1
 	github.com/casbin/casbin/v2 v2.99.0
 	github.com/jackc/pgx/v5 v5.7.1
 	github.com/mmcloughlin/meow v0.0.0-20200201185800-3501c7c05d21
