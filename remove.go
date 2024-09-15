@@ -28,14 +28,23 @@ func (a *Adapter) RemovePolicyCtx(ctx context.Context, sec string, ptype string,
 	return a.RemovePoliciesCtx(ctx, sec, ptype, [][]string{rule})
 }
 
+// (1, "1", "2")
+// (2, "1", "2", "3")
+// ["", "1", "2", "", "", ""]
+// ["", "", "1", "2", "3", ""]
+
 // RemoveFilteredPolicyCtx removes policy rules that match the filter from the storage with context.
 // This is part of the Auto-Save feature.
 func (a *Adapter) RemoveFilteredPolicyCtx(ctx context.Context, sec string, ptype string, fieldIndex int, fieldValues ...string) error {
 	// this will be populated with given values
 	filter := make([]string, 6)
 
-	for i := fieldIndex; i <= len(fieldValues); i++ {
-		filter[i] = fieldValues[i-fieldIndex]
+	for i, value := range fieldValues {
+		index := i + fieldIndex
+		if index >= len(filter) {
+			continue
+		}
+		filter[i+fieldIndex] = value
 	}
 
 	params := db.AccessRule{}

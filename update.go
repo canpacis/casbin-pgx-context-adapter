@@ -84,8 +84,12 @@ func (a *Adapter) UpdateFilteredPoliciesCtx(
 
 	filter := make([]string, 6)
 
-	for i := fieldIndex; i <= len(fieldValues); i++ {
-		filter[i] = fieldValues[i-fieldIndex]
+	for i, value := range fieldValues {
+		index := i + fieldIndex
+		if index >= len(filter) {
+			continue
+		}
+		filter[i+fieldIndex] = value
 	}
 
 	filterRule := db.AccessRule{}
