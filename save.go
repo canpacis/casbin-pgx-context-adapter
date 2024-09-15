@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/CanPacis/casbin-pgx-context-adapter/db"
-	"github.com/casbin/casbin/model"
+	"github.com/casbin/casbin/v2/model"
 )
 
 // BASE
