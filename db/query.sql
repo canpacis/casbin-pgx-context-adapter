@@ -22,13 +22,6 @@ VALUES
   )
 ON conflict (id) do nothing;
 
--- name: SoftRemovePolicy :batchexec
-UPDATE access_rules
-SET
-  deleted_at = NOW()
-WHERE
-  id = $1;
-
 -- name: UpdatePolicy :batchexec
 UPDATE access_rules
 SET
@@ -81,10 +74,8 @@ WHERE
   )
   AND deleted_at IS NULL;
 
--- name: FilteredSoftRemovePolicy :exec
-UPDATE access_rules
-SET
-  deleted_at = NOW()
+-- name: FilteredRemovePolicy :exec
+DELETE FROM access_rules
 WHERE
   ptype = sqlc.arg (ptype)
   AND (

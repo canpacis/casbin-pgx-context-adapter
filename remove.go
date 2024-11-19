@@ -28,11 +28,6 @@ func (a *Adapter) RemovePolicyCtx(ctx context.Context, sec string, ptype string,
 	return a.RemovePoliciesCtx(ctx, sec, ptype, [][]string{rule})
 }
 
-// (1, "1", "2")
-// (2, "1", "2", "3")
-// ["", "1", "2", "", "", ""]
-// ["", "", "1", "2", "3", ""]
-
 // RemoveFilteredPolicyCtx removes policy rules that match the filter from the storage with context.
 // This is part of the Auto-Save feature.
 func (a *Adapter) RemoveFilteredPolicyCtx(ctx context.Context, sec string, ptype string, fieldIndex int, fieldValues ...string) error {
@@ -50,7 +45,7 @@ func (a *Adapter) RemoveFilteredPolicyCtx(ctx context.Context, sec string, ptype
 	params := db.AccessRule{}
 	params.Scan(ptype, filter)
 
-	return a.query.FilteredSoftRemovePolicy(ctx, params)
+	return a.query.FilteredRemovePolicy(ctx, params)
 }
 
 // BATCH
@@ -80,7 +75,7 @@ func (a *Adapter) RemovePoliciesCtx(ctx context.Context, sec string, ptype strin
 		ids = append(ids, ar.GetID())
 	}
 
-	batch := a.query.WithTx(tx).SoftRemovePolicy(ctx, ids)
+	batch := a.query.WithTx(tx).RemovePolicy(ctx, ids)
 	var batchErr error
 	batch.Exec(func(i int, err error) {
 		if err != nil {

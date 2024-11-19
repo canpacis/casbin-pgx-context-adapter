@@ -10,10 +10,8 @@ import (
 
 )
 
-const filteredSoftRemovePolicy = `-- name: FilteredSoftRemovePolicy :exec
-UPDATE access_rules
-SET
-  deleted_at = NOW()
+const filteredRemovePolicy = `-- name: FilteredRemovePolicy :exec
+DELETE FROM access_rules
 WHERE
   ptype = $1
   AND (
@@ -43,8 +41,8 @@ WHERE
   AND deleted_at IS NULL
 `
 
-func (q *Queries) FilteredSoftRemovePolicy(ctx context.Context, arg AccessRule) error {
-	_, err := q.db.Exec(ctx, filteredSoftRemovePolicy,
+func (q *Queries) FilteredRemovePolicy(ctx context.Context, arg AccessRule) error {
+	_, err := q.db.Exec(ctx, filteredRemovePolicy,
 		arg.Ptype,
 		arg.V0,
 		arg.V1,
