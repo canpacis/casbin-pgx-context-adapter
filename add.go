@@ -3,7 +3,7 @@ package casbinpgxcontextadapter
 import (
 	"context"
 
-	"github.com/CanPacis/casbin-pgx-context-adapter/db"
+	"github.com/canpacis/casbin-pgx-context-adapter/db"
 )
 
 // BASE

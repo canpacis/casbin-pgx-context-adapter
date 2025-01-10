@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/CanPacis/casbin-pgx-context-adapter/db"
+	"github.com/canpacis/casbin-pgx-context-adapter/db"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 

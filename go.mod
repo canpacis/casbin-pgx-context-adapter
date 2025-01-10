@@ -1,4 +1,4 @@
-module github.com/CanPacis/casbin-pgx-context-adapter
+module github.com/canpacis/casbin-pgx-context-adapter
 
 go 1.23.0
 
